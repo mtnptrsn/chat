@@ -19,6 +19,10 @@ export const initializeSocketConnection = async () => {
     process.env.REACT_APP_ENDPOINT as string,
     process.env.REACT_APP_TOKEN as string,
   )
-  await client.connect()
-  store.dispatch(updateIsLoading(false))
+  try {
+    await client.connect()
+    store.dispatch(updateIsLoading(false))
+  } catch {
+    alert('Connection to socket server failed... Please refresh to try again.')
+  }
 }
