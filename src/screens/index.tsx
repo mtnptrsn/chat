@@ -51,7 +51,7 @@ const IndexScreen: React.FC = () => {
         flexDirection="column"
         height="100vh"
         width="100%"
-        maxWidth={800}
+        maxWidth={maxWidth}
         marginLeft="auto"
         marginRight="auto"
       >
