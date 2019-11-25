@@ -1,11 +1,10 @@
 # Chat
 
-## Installation
-### Prerequisites
+## Prerequisites
 - node
 - npm / yarn
 
-### Steps
+## Installation
 1. Clone repository
 2. Create a `.env` file in the root folder with the following properties:
   - REACT_APP_ENDPOINT
