@@ -4,18 +4,21 @@ import theme from '../styles/theme'
 
 interface IMessageBubbleProps {
   message: string
-  isOwn: boolean
+  isFromBot: boolean
 }
 
-const MessageBubble: React.SFC<IMessageBubbleProps> = ({ message, isOwn }) => (
+const MessageBubble: React.SFC<IMessageBubbleProps> = ({
+  message,
+  isFromBot,
+}) => (
   <Box
     padding={1}
     paddingLeft={2}
     paddingRight={2}
-    bgcolor={isOwn ? theme.palette.primary.main : theme.palette.grey[200]}
+    bgcolor={isFromBot ? theme.palette.grey[200] : theme.palette.primary.main}
     borderRadius={12}
-    color={isOwn ? 'white' : theme.palette.text.primary}
-    alignSelf={isOwn ? 'flex-end' : 'flex-start'}
+    color={isFromBot ? theme.palette.text.primary : 'white'}
+    alignSelf={isFromBot ? 'flex-start' : 'flex-end'}
   >
     <Typography>{message}</Typography>
   </Box>

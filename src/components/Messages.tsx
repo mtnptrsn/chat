@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
+import { Box, styled } from '@material-ui/core'
 import MessageBubble from './MessageBubble'
 import { IMessage } from '../types'
 
@@ -7,32 +7,41 @@ interface IMessagesProps {
   messages: IMessage[]
 }
 
-const Messages: React.SFC<IMessagesProps> = ({ messages }) => (
-  <Box
-    paddingLeft={1}
-    paddingRight={1}
-    paddingTop={1}
-    flex={1}
-    display="flex"
-    flexDirection="column"
-    overflow="scroll"
-  >
-    {messages.map(({ message }, index) => {
-      const isOwn = index % 2 === 0
+const Container = styled('div')(({ theme }) => ({
+  padding: theme.spacing(2),
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  overflowY: 'scroll',
+}))
 
-      return (
-        <Box
-          ml={isOwn ? 8 : 0}
-          mr={isOwn ? 0 : 8}
-          mt={index === 0 ? 0 : 1}
-          display="flex"
-          flexDirection="column"
-        >
-          <MessageBubble message={message} isOwn={isOwn} />
-        </Box>
-      )
-    })}
-  </Box>
-)
+const Messages: React.SFC<IMessagesProps> = ({ messages }) => {
+  const containerRef = React.useRef<any>(null)
+
+  React.useEffect(() => {
+    const containerElement = containerRef.current
+    const containerHeight = containerElement.scrollHeight
+    containerElement.scrollTo(0, containerHeight)
+  }, [messages])
+
+  return (
+    <Container ref={containerRef}>
+      {messages.map(({ message, isFromBot }, index) => {
+        return (
+          <Box
+            key={index} // using index since we don't have a unique identifier for all messages
+            ml={isFromBot ? 0 : 8}
+            mr={isFromBot ? 8 : 0}
+            mt={index === 0 ? 0 : 1}
+            display="flex"
+            flexDirection="column"
+          >
+            <MessageBubble message={message} isFromBot={isFromBot} />
+          </Box>
+        )
+      })}
+    </Container>
+  )
+}
 
 export default Messages

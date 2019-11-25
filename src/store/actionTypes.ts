@@ -1,0 +1,2 @@
+export const ADD_MESSAGE = 'ADD_MESSAGE'
+export const UPDATE_IS_LOADING = 'UPDATE_IS_LOADING'
